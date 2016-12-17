@@ -24,11 +24,12 @@
           (io/copy zis out :buffer-size buffer-size))))))
 
 (defn compress-files!
-  "Given a list of files to compress, creates a flat ZIP file at
-  outfile."
+  "Given a list of maps of {:file :name} to compress, creates a ZIP
+  file at outfile. For each file, :name is the name in the ZIP file
+  and :file is the path to the file."
   [file-list outfile]
   (with-open [zip (ZipOutputStream. (io/output-stream outfile))]
     (doseq [file file-list]
-      (.putNextEntry zip (ZipEntry. (.getName (io/file file))))
-      (io/copy (io/file file) zip :buffer-size buffer-size)
+      (.putNextEntry zip (ZipEntry. (:name file)))
+      (io/copy (:file file) zip :buffer-size buffer-size)
       (.closeEntry zip))))

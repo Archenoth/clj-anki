@@ -49,8 +49,12 @@
   entries, this function will create a new Anki package that can be
   imported into Anki."
   [inmap outfile]
-  (io/copy (io/input-stream (io/resource "media")) (io/file "media"))
-  (let [files [(map-seq-to-collection! inmap "collection.anki2") "media"]]
-    (zip/compress-files! files outfile)
-    (io/delete-file "media")
-    (io/delete-file "collection.anki2")))
+  (let [collection-file (File/createTempFile "clj-anki" ".apkg")
+        media-file (File/createTempFile "media" ".json")]
+    (map-seq-to-collection! inmap (.getAbsoluteFile collection-file))
+    (io/copy (io/input-stream (io/resource "media")) media-file)
+    (zip/compress-files! [{:name "collection.anki2" :file collection-file}
+                          {:name "media" :file media-file}]
+                         outfile)
+    (io/delete-file media-file)
+    (io/delete-file collection-file)))
