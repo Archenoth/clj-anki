@@ -1,4 +1,4 @@
-(defproject clj-anki "0.0.0"
+(defproject clj-anki "0.0.1"
   :description "A Clojure library for creating and interacting with Anki files."
   :url "https://github.com/Archenoth/clj-anki"
   :license {:name "Eclipse Public License"
