@@ -52,4 +52,5 @@
   (io/copy (io/input-stream (io/resource "media")) (io/file "media"))
   (let [files [(map-seq-to-collection! inmap "collection.anki2") "media"]]
     (zip/compress-files! files outfile)
-    (io/delete-file "media" "collection.anki2")))
+    (io/delete-file "media")
+    (io/delete-file "collection.anki2")))
