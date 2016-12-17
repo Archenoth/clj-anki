@@ -6,10 +6,6 @@
            java.io.File)
   (require [clojure.java.io :as io]))
 
-(def buffer-size
-  "The amount to read at a time when streaming buffers."
-  512)
-
 (defn extract-file-from-zip!
   "Given a zipfile and the name of a file in it, this function will
   either extract the file to the specified outfile location or to the
@@ -21,7 +17,7 @@
       (if (not (= file (.getName entry)))
         (recur (.getNextEntry zis))
         (with-open [out (io/output-stream (or outfile file))]
-          (io/copy zis out :buffer-size buffer-size))))))
+          (io/copy zis out))))))
 
 (defn compress-files!
   "Given a list of maps of {:file :name} to compress, creates a ZIP
@@ -31,5 +27,5 @@
   (with-open [zip (ZipOutputStream. (io/output-stream outfile))]
     (doseq [file file-list]
       (.putNextEntry zip (ZipEntry. (:name file)))
-      (io/copy (:file file) zip :buffer-size buffer-size)
+      (io/copy (:file file) zip)
       (.closeEntry zip))))
