@@ -36,7 +36,7 @@
   "Given a sequence of maps with :answers, :tags, and :question
   entries, this function will create a new Anki collection."
   [inmap outfile]
-  (io/copy (io/file "res/blank.sqlite") (io/file outfile))
+  (io/copy (io/file (io/resource "blank.sqlite")) (io/file outfile))
   (sql/with-db-connection [db (assoc database-spec :subname outfile)]
     (let [values (map rec/convert-map-to-db inmap)]
       (sql/insert-multi! db "notes" values)
@@ -49,5 +49,5 @@
   entries, this function will create a new Anki package that can be
   imported into Anki."
   [inmap outfile]
-  (let [files [(map-seq-to-collection! inmap "collection.anki2") "res/media"]]
+  (let [files [(map-seq-to-collection! inmap "collection.anki2") (io/resource "media")]]
     (zip/compress-files! files outfile)))
