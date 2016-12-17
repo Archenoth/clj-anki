@@ -9,5 +9,3 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
-*.apkg
-*.anki2
