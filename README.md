@@ -1,9 +1,8 @@
-## NOTE: This library is not production-ready
-It lacks many features and has not been extensively tested.
-
 # clj-anki
 A Clojure library designed to allow programmatic interaction
 with [Anki](http://ankisrs.net/) packages.
+
+[![Build Status](https://travis-ci.org/Archenoth/clj-anki.svg?branch=master)](https://travis-ci.org/Archenoth/clj-anki)
 
 ## Usage
 
