@@ -28,7 +28,7 @@ Or if you want it in your namespace declaration:
 ```clojure
 (ns some-namespace.thing
   "Some documentation (Because you should)"
-  (require [clj-anki.core :as anki]))
+  (:require [clj-anki.core :as anki]))
 ```
 
 # Writing
