@@ -14,7 +14,7 @@
   [zipfile file & [outfile]]
   (let [zis (ZipInputStream. (io/input-stream zipfile))]
     (loop [entry (.getNextEntry zis)]
-      (if (not (= file (.getName entry)))
+      (if-not (= file (.getName entry))
         (recur (.getNextEntry zis))
         (with-open [out (io/output-stream (or outfile file))]
           (io/copy zis out))))))
