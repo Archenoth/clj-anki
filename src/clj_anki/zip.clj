@@ -22,7 +22,7 @@
 (defn compress-files!
   "Given a list of maps of {:file :name} to compress, creates a ZIP
   file at outfile. For each file, :name is the name in the ZIP file
-  and :file is the path to the file."
+  and :file is the file object."
   [file-list outfile]
   (with-open [zip (ZipOutputStream. (io/output-stream outfile))]
     (doseq [file file-list]
