@@ -9,5 +9,5 @@
 
 (deftest anki-checksum-test
   (testing "We mangle strings into integers the right way for Anki"
-    (is (= (anki-checksum "embarrasing") 4061063026)
-        (= (anki-checksum "漢字") 1342210658))))
+    (is (= (anki-checksum "embarrasing") 4061063026))
+    (is (= (anki-checksum "漢字") 1342210658))))
