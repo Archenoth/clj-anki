@@ -3,6 +3,29 @@ A Clojure library designed to allow programmatic interaction
 with [Anki](http://ankisrs.net/) packages.
 
 [![Build Status](https://travis-ci.org/Archenoth/clj-anki.svg?branch=master)](https://travis-ci.org/Archenoth/clj-anki)
+[![Clojars Project](https://img.shields.io/clojars/v/clj-anki.svg)](https://clojars.org/clj-anki)
+
+Leiningen/Boot
+
+```clojure
+[clj-anki "0.0.1"]
+```
+
+Gradle
+
+```
+compile "clj-anki:clj-anki:0.0.1"
+```
+
+Maven
+
+```xml
+<dependency>
+  <groupId>clj-anki</groupId>
+  <artifactId>clj-anki</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
 
 ## Usage
 
