@@ -8,13 +8,13 @@ with [Anki](http://ankisrs.net/) packages.
 Leiningen/Boot
 
 ```clojure
-[clj-anki "0.0.1"]
+[clj-anki "0.0.2"]
 ```
 
 Gradle
 
 ```
-compile "clj-anki:clj-anki:0.0.1"
+compile "clj-anki:clj-anki:0.0.2"
 ```
 
 Maven
@@ -23,7 +23,7 @@ Maven
 <dependency>
   <groupId>clj-anki</groupId>
   <artifactId>clj-anki</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
