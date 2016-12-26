@@ -117,7 +117,7 @@ You would get back a collection of maps like:
    {:question \"Why are you writing different examples for the same structure?\"
     :answers [\"Because different examples make things easier to remember!\"]
     :tags #{\"FAQ\"}}
-  {:question \"What does a card with no tags ans two answers look like?\"
+  {:question \"What does a card with no tags and two answers look like?\"
    :answers [\"Like this!\" \"See?\"]}]"
   [inmaps outfile]
   (let [collection-file (File/createTempFile "clj-anki" ".apkg")
