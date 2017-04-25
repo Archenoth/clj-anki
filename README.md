@@ -65,6 +65,6 @@ found [here](doc/intro.md).
 
 ## License
 
-Copyright © 2016 Archenoth
+Copyright © 2016-2017 Archenoth
 
-Distributed under the Eclipse Public License either version 1.0
+Distributed under the Eclipse Public License version 1.0
