@@ -6,7 +6,8 @@
             [clj-anki.record :as rec]
             [clojure.java.jdbc :as sql]
             [clojure.string :as str]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clojure.spec :as s]))
 
 (def database-spec
   "The a map to use as the base for database connections.
@@ -15,6 +16,42 @@
   http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html"
   {:classname "org.sqlite.JDBC"
    :subprotocol "sqlite"})
+
+;; Note field specifications
+(s/def ::question string?)
+(s/def ::answer string?)
+(s/def ::tag string?)
+(s/def ::answers (s/coll-of ::answer :into []))
+(s/def ::tags (s/coll-of ::tag :into #{}))
+
+;; Allowed note argument specs
+;; {:question "What's up?" :answers ["Not a lot" "You?"] :tags #{"me_irl"}}
+(s/def ::keyed-note
+  (s/keys :req-un [::question ::answers]
+          :opt-un [::tags]))
+
+;; {:question "What's up?" :answer "Not a lot" :tags #{"me_irl"}}
+(s/def ::keyed-single-note
+  (s/keys :req-un [::question ::answer]
+          :opt-un [::tags]))
+
+;; "What's up?" "Not a lot"
+(s/def ::bare-note
+  (s/cat :question ::question
+         :answer ::answer))
+
+;; ["What's up?" "Not a lot" "You?"]
+(s/def ::listed-note
+  (s/and (s/coll-of string?)
+         (s/cat :question ::question
+                :answers (s/+ ::answer))))
+
+;; Splitting the note types into multi-answer and single-answer notes
+(s/def ::notes
+  (s/* (s/alt :multi ::keyed-note
+              :multi ::listed-note
+              :single ::bare-note
+              :single ::keyed-single-note)))
 
 (defn read-notes-from-collection
   "Given the path to a .anki2 file, reads :answers, :question,
