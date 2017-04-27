@@ -55,6 +55,18 @@
               :single ::bare-note
               :single ::keyed-single-note)))
 
+;; Note multimethods
+(defmulti normalize-note
+  "Normalizes a conformed note-type into a map that can be used by
+  `map-seq-to-collection!`"
+  (fn [note] (first note)))
+
+(defmethod normalize-note :single single-note-normalize [[_ note]]
+  (assoc (dissoc note :answer) :answers [(:answer note)]))
+
+(defmethod normalize-note :multi multi-note-normalize [[_ note]]
+  note)
+
 ;; Functions!
 (defn read-notes-from-collection
   "Given the path to a .anki2 file, reads :answers, :question,
