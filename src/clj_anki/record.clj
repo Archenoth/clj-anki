@@ -1,8 +1,8 @@
 (ns clj-anki.record
   "An unsightly helper library for creating database records."
   (:import java.util.Date)
-  (require [clj-anki.hash :as hash]
-           [clojure.string :as str]))
+  (:require [clj-anki.hash :as hash]
+            [clojure.string :as str]))
 
 (defn convert-map-to-db
   "Given a record with the keys :tags (optional), :answers,

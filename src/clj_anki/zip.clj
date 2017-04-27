@@ -4,7 +4,7 @@
   imperative code ahoy."
   (:import [java.util.zip ZipInputStream ZipOutputStream ZipEntry]
            java.io.File)
-  (require [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]))
 
 (defn extract-file-from-zip!
   "Given a zipfile and the name of a file in it, this function will

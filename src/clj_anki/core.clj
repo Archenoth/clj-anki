@@ -2,11 +2,11 @@
   "The core library for interacting with Anki files. The two main
   functions of interest are 'read-notes' and 'map-seq-to-package!'"
   (:import java.io.File)
-  (require [clj-anki.zip :as zip]
-           [clj-anki.record :as rec]
-           [clojure.java.jdbc :as sql]
-           [clojure.string :as str]
-           [clojure.java.io :as io]))
+  (:require [clj-anki.zip :as zip]
+            [clj-anki.record :as rec]
+            [clojure.java.jdbc :as sql]
+            [clojure.string :as str]
+            [clojure.java.io :as io]))
 
 (def database-spec
   "The a map to use as the base for database connections.
