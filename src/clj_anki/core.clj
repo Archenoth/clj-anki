@@ -9,6 +9,7 @@
             [clojure.java.io :as io]
             [clojure.spec :as s]))
 
+;; Constants
 (def database-spec
   "The a map to use as the base for database connections.
 
@@ -17,6 +18,7 @@
   {:classname "org.sqlite.JDBC"
    :subprotocol "sqlite"})
 
+;; Clojure Specs
 ;; Note field specifications
 (s/def ::question string?)
 (s/def ::answer string?)
@@ -53,6 +55,7 @@
               :single ::bare-note
               :single ::keyed-single-note)))
 
+;; Functions!
 (defn read-notes-from-collection
   "Given the path to a .anki2 file, reads :answers, :question,
   and :tags entries from its notes and returns them as a list of maps.
