@@ -181,3 +181,98 @@ You would get back a collection of maps like:
                          outfile)
     (io/delete-file media-file)
     (io/delete-file collection-file)))
+
+(defn notes-to-collection!
+  "Given a list of notes and a file path, makes an Anki
+  collection (database) at `outfile`
+
+  Notes can be in a number of styles. For example:
+
+  - Pairs:
+  ([<question> <answer> <question> <answer> ...])
+
+  (let [notes [\"What's new Scooby Doo?\" \"<silence>\"
+               \"Where are you?\" \"<more silence>\"]]
+    (notes-to-collection! notes \"scooby.anki2\"))
+
+  - Lists:
+    ([[<question> <answer> <answer> <answer> ...]
+      [<question> ...]])
+
+    (let [notes [[\"What's new Scooby Doo?\" \"<silence>\" \"Zoinks!\"]
+                 [\"Where are you?\" \"<more silence>\" \"Ruh-roh!\"]]]
+      (notes-to-collection! notes \"scooby.anki2\"))
+
+  - Maps:
+    ([{:question <question>
+       :answer <answer>
+       :tags #{<tag> <tag>}}
+      ...])
+
+    (let [notes [{:question \"What's new Scooby Doo?\"
+                  :answer \"<silence>\"
+                  :tags #{\"Scooby\"}}
+
+                 {:question \"Where are you?\"
+                  :answer \"<more silence>\"
+                  :tags #{\"Scooby\"}}]]
+      (notes-to-collection! notes \"scooby.anki2\"))
+
+  - Maps with multiple answers:
+    ([{:question <question>
+       :answers [<answer> <answer> ...]
+       :tags #{<tag> <tag>}}
+      ...])
+
+    (let [notes [{:question \"What's new Scooby Doo?\"
+                  :answers [\"<silence>\" \"Zoinks!\"]
+                  :tags #{\"Scooby\"}}
+
+                 {:question \"Where are you?\"
+                  :answers [\"<more silence>\" \"Ruh-roh!\"]
+                  :tags #{\"Scooby\"}}]]
+      (notes-to-collection! notes \"scooby.anki2\"))
+
+  - Also mixes of any of the above work in unison:
+
+    (let [notes [\"What's new Scooby Doo?\" \"<silence>\"
+                 {:question \"Where are you?\"
+                  :answer \"<more silence>\"
+                  :tags #{\"Scooby\"}}]]
+      (notes-to-collection! notes \"scooby.anki2\"))
+
+  (See `notes-to-package!` for more examples.)"
+  [notes outfile]
+  (-> (map normalize-note (s/conform ::notes notes))
+      (map-seq-to-collection! outfile)))
+
+(defn notes-to-package!
+  "Given a list of `notes` and an `outfile` (Usually an .apkg),
+  this function creates an Anki package containing all of the notes.
+
+  Notes can be in a number of styles. (And mixed!) For example:
+
+  (let [cards [{:question \"Do you know the muffin man?\"
+                :answers [\"The muffin man?\" \"The muffin man!\"]}
+
+               \"But, do you know the muffin man?\" \"Yes\"
+
+               {:question \"However, do you know the muffin man?\"
+                :answers [\"I do\" \"Stop it\"]}
+
+               {:question \"Do you kn--\"
+                :answer \"STOP\"
+                :tags #{\"repetition\"}}
+
+               {:question \"Where is the muffin man?\"
+                :answer \"Maybe Drury Lane..?\"}
+
+               \"Where?\" \"I said I think he lives on Drury Lane!\"
+
+               [\"What are we talking about?\" \"...\" \"Ugh\"]]]
+    (notes-to-package! cards \"muffin-man.apkg\"))
+
+  (See `notes-to-collection!` for more elaborate format examples)"
+  [notes outfile]
+  (-> (map normalize-note (s/conform ::notes notes))
+      (map-seq-to-package! outfile)))
