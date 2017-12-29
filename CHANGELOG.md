@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this
 file. This change log follows the conventions
 of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.0.3] - 2017-12-29
+### Added
+- User-friendly functions that accept a large number of input styles
+  for notes, namely `notes-to-package!` and `notes-to-collection!`
+- Clojure specs
+- Generative testing for the conversion of these input styles
+
 ## [0.0.2] - 2016-12-21
 ### Added
 - Considerably nicer documentation in the code itself.

@@ -8,13 +8,13 @@ with [Anki](http://ankisrs.net/) packages.
 Leiningen/Boot
 
 ```clojure
-[clj-anki "0.0.2"]
+[clj-anki "0.0.3"]
 ```
 
 Gradle
 
 ```
-compile "clj-anki:clj-anki:0.0.2"
+compile "clj-anki:clj-anki:0.0.3"
 ```
 
 Maven
@@ -23,7 +23,7 @@ Maven
 <dependency>
   <groupId>clj-anki</groupId>
   <artifactId>clj-anki</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 
@@ -40,9 +40,9 @@ example, to write some math questions with the tag "`math`" to a file
 called "`math.apkg`", you could:
 
 ```clojure
-(let [cards [{:question "3 + 4" :answers ["7"] :tags #{"math"}}
-             {:question "4 + 5" :answers ["9"] :tags #{"math"}}]]
-  (anki/map-seq-to-package! cards "math.apkg"))
+(let [cards ["3 + 4" "7"
+             "4 + 5" "9"]
+  (anki/notes-to-package! cards "math.apkg"))
 ```
 
 The resulting package you can import into Anki.
