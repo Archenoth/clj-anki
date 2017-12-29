@@ -5,6 +5,11 @@ with [Anki](http://ankisrs.net/) packages.
 [![Build Status](https://travis-ci.org/Archenoth/clj-anki.svg?branch=master)](https://travis-ci.org/Archenoth/clj-anki)
 [![Clojars Project](https://img.shields.io/clojars/v/clj-anki.svg)](https://clojars.org/clj-anki)
 
+deps.edn
+```clojure
+clj-anki {:mvn/version "0.0.4"}
+```
+
 Leiningen/Boot
 
 ```clojure
