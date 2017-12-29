@@ -13,13 +13,13 @@ clj-anki {:mvn/version "0.0.4"}
 Leiningen/Boot
 
 ```clojure
-[clj-anki "0.0.3"]
+[clj-anki "0.0.4"]
 ```
 
 Gradle
 
 ```
-compile "clj-anki:clj-anki:0.0.3"
+compile "clj-anki:clj-anki:0.0.4"
 ```
 
 Maven
@@ -28,7 +28,7 @@ Maven
 <dependency>
   <groupId>clj-anki</groupId>
   <artifactId>clj-anki</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
 </dependency>
 ```
 
