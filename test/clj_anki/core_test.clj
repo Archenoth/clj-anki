@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [clj-anki.core :refer :all]
             [clojure.java.io :as io]
-            [clojure.spec :as s]))
+            [clojure.spec.alpha :as s]))
 
 (def test-map-list
   "The map of data to test"

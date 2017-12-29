@@ -7,7 +7,7 @@
             [clojure.java.jdbc :as sql]
             [clojure.string :as str]
             [clojure.java.io :as io]
-            [clojure.spec :as s]))
+            [clojure.spec.alpha :as s]))
 
 ;; Constants
 (def database-spec
