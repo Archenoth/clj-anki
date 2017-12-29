@@ -20,10 +20,11 @@
 
 ;; Clojure Specs
 ;; Note field specifications
-(s/def ::question string?)
-(s/def ::answer string?)
-(s/def ::tag string?)
-(s/def ::answers (s/coll-of ::answer :into []))
+(s/def ::non-empty-string (s/and string? not-empty))
+(s/def ::question ::non-empty-string)
+(s/def ::answer ::non-empty-string)
+(s/def ::tag ::non-empty-string)
+(s/def ::answers (s/coll-of ::answer :into [] :min-count 1))
 (s/def ::tags (s/coll-of ::tag :into #{}))
 
 ;; Allowed note argument specs
@@ -37,35 +38,44 @@
   (s/keys :req-un [::question ::answer]
           :opt-un [::tags]))
 
+;; ["What's up?" "Not a lot" "You?"]
+(s/def ::listed-note
+  (s/and (s/cat :question ::question
+                :answers (s/+ ::answer))))
+
 ;; "What's up?" "Not a lot"
-(s/def ::bare-note
+(s/def ::note-pair
   (s/cat :question ::question
          :answer ::answer))
 
-;; ["What's up?" "Not a lot" "You?"]
-(s/def ::listed-note
-  (s/and (s/coll-of string?)
-         (s/cat :question ::question
-                :answers (s/+ ::answer))))
-
 ;; Splitting the note types into multi-answer and single-answer notes
 (s/def ::notes
-  (s/* (s/alt :multi ::keyed-note
+  (s/+ (s/alt :multi ::keyed-note
               :multi ::listed-note
-              :single ::bare-note
-              :single ::keyed-single-note)))
+              :single ::keyed-single-note
+              :single ::note-pair)))
 
 ;; Note multimethods
 (defmulti normalize-note
   "Normalizes a conformed note-type into a map that can be used by
   `map-seq-to-collection!`"
-  (fn [note] (first note)))
+  first)
 
 (defmethod normalize-note :single single-note-normalize [[_ note]]
   (assoc (dissoc note :answer) :answers [(:answer note)]))
 
 (defmethod normalize-note :multi multi-note-normalize [[_ note]]
   note)
+
+(defn normalize-notes
+  "Normalizes a set of notes from the user in any form into
+  keyed-notes to be used by other functions."
+  [& notes]
+  (map normalize-note (s/conform ::notes notes)))
+
+(s/fdef normalize-notes
+  :args ::notes
+  :ret (s/coll-of ::keyed-note))
 
 ;; Functions!
 (defn read-notes-from-collection
@@ -243,7 +253,7 @@ You would get back a collection of maps like:
 
   (See `notes-to-package!` for more examples.)"
   [notes outfile]
-  (-> (map normalize-note (s/conform ::notes notes))
+  (-> (apply normalize-notes notes)
       (map-seq-to-collection! outfile)))
 
 (defn notes-to-package!
@@ -274,5 +284,5 @@ You would get back a collection of maps like:
 
   (See `notes-to-collection!` for more elaborate format examples)"
   [notes outfile]
-  (-> (map normalize-note (s/conform ::notes notes))
+  (-> (apply normalize-notes notes)
       (map-seq-to-package! outfile)))
