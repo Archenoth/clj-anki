@@ -1,5 +1,4 @@
-name: Clojure CI
-
+name: Build Status
 on:
   push:
     branches: [ "master" ]
