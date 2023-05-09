@@ -2,7 +2,7 @@
 A Clojure library designed to allow programmatic interaction
 with [Anki](http://ankisrs.net/) packages.
 
-[![Build Status](https://travis-ci.org/Archenoth/clj-anki.svg?branch=master)](https://travis-ci.org/Archenoth/clj-anki)
+[![Build Status](https://github.com/Archenoth/clj-anki/actions/workflows/clojure.yml/badge.svg)](https://github.com/Archenoth/clj-anki/actions/workflows/clojure.yml)
 [![Clojars Project](https://img.shields.io/clojars/v/clj-anki.svg)](https://clojars.org/clj-anki)
 
 deps.edn
